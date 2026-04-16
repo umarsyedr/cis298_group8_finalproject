@@ -30,4 +30,5 @@ How we are going to build this:
 
 LOG:
 
-1.
+1. Commits 1,2,3: Umar: 2 hours - I brainstormed features for the app, assigned tasks to everyone, and made a timeline for completion. Also added a custom list csv file for testing.
+2.
