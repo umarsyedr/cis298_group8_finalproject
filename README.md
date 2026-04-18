@@ -1,7 +1,12 @@
 To run this install:
 
-1. (INSERT DEPENDENCIES HERE)
-2. python(3) main.py
+1. To create a virtual enviornment (on mac), run
+
+- python3 -m venv venv
+- source venv/bin/activate
+
+2. Requests, (INSERT MORE DEPENDENCIES HERE)
+3. python(3) main.py
 
 Idea: we are building a vocabulary memorization app, where the user inputs a list of words they want to memorize, and we display their definitions one by one and have the user guess it wordle style. They will get 5 attempts to guess the word through its definition. An alternative to this is to study one of our preselected lists:
 
@@ -34,4 +39,4 @@ LOG:
 2. Commits 4,5: Dijon, 35 minutes - Compiled a list of social studies vocabulary in social_studies_list.csv
 3. Commits 6: Mohammad, 45 minutes - Compiled a list of medical vocabulary in medical_list.csv.
 4. Commits 10-11: Dijon, 5 minutes - I saw and fixed time for Readme, and saw that list definition should be blank and added some more words
-5. 
+5. Commit 12: Umar: 50 minutes - Found and integrated the definitions api within the get definitions function. Added a gitignore for the venv and .idea, and added documentation for creating a virtual enviornment.
