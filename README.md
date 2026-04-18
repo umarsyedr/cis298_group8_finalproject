@@ -31,6 +31,6 @@ How we are going to build this:
 LOG:
 
 1. Commits 1,2,3: Umar, 2 hours - I brainstormed features for the app, assigned tasks to everyone, and made a timeline for completion. Also added a custom list csv file for testing.
-2. Commits 4,5: Dijon, 
+2. Commits 4,5: Dijon, 35 minutes - Compiled a list of social studies vocabulary in social_studies_list.csv
 3. Commits 6: Mohammad, 45 minutes - Compiled a list of medical vocabulary in medical_list.csv.
 4. 
