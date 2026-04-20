@@ -37,6 +37,7 @@ LOG:
 
 1. Commits 1,2,3: Umar, 2 hours - I brainstormed features for the app, assigned tasks to everyone, and made a timeline for completion. Also added a custom list csv file for testing.
 2. Commits 4,5: Dijon, 35 minutes - Compiled a list of social studies vocabulary in social_studies_list.csv
-3. Commits 6: Mohammad, 45 minutes - Compiled a list of medical vocabulary in medical_list.csv.
-4. Commits 10-11: Dijon, 5 minutes - I saw and fixed time for Readme, and saw that list definition should be blank and added some more words
-5. Commit 12: Umar: 50 minutes - Found and integrated the definitions api within the get definitions function. Added a gitignore for the venv and .idea, and added documentation for creating a virtual enviornment.
+3. Commits 6-9: Mohammad, 45 minutes - Compiled a list of medical vocabulary in medical_list.csv.
+4. Commits 10-12: Dijon, 5 minutes - I saw and fixed the time for Readme, and saw that the list definition should be blank, and added some more words
+5. Commits 13-14: Umar: 50 minutes - Found and integrated the definitions api within the get definitions function. Added a gitignore for the venv and .idea, and added documentation for creating a virtual environment.
+6. Commits 15-16: Mohammad, 2½ hours - Made a csv loader function in loader.py, tested our dictionary api integration, verified some error handling within csv files, and updated the log in readme.md.
