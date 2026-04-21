@@ -13,8 +13,9 @@ def load_word_list(filepath):
                 return []
             for row in reader:
                 word = row.get('word', '').strip()
+                definition = row.get("definition", "").strip()
                 if word:
-                    words.append(word)
+                    words.append({"word": word, "definition": definition})
         print(f"Loaded {len(words)} words from {filepath}")
         return words
     except FileNotFoundError:

@@ -1,25 +1,41 @@
 import requests
 from loader import load_word_list
+import csv
 
 # ref: https://www.w3schools.com/python/ref_requests_post.asp
 # api ref: https://github.com/meetDeveloper/freeDictionaryAPI
 
+# kinda unrelated to the cache commit, but a really good vid for understanding caching: https://www.youtube.com/watch?v=W6b6J1svbj8
+
+# for cache, a helper basicaly
+# ref: https://docs.python.org/3/library/csv.html
+def save_defs(filepath, words_with_defs):
+    with open(filepath, 'w', newline='', encoding='utf-8') as file:
+        writer = csv.DictWriter(file, fieldnames=["word", "definition"])
+        writer.writeheader()
+        writer.writerows(words_with_defs)
+
 def get_definitions(word_list):
     list_with_defs = []
+    # put this in env later, although the documentation doesn't say too.
+    base_url = "https://api.dictionaryapi.dev/api/v2/entries/en/"
+    
     for word in word_list:
-        # put this in env later, although the documentation doesn't say too.
-        base_url = "https://api.dictionaryapi.dev/api/v2/entries/en/"
+        if word.get("definition"):
+            list_with_defs.append(word)
+            continue
         try:
-            response = requests.get(f"{base_url}{word}")
+            # had to change this because its a dict now which helps with caching
+            response = requests.get(f"{base_url}{word['word']}")
             response.raise_for_status()  # Raise error if response is bad
             data = response.json()
             definition = data[0]["meanings"][0]["definitions"][0]["definition"]
-            list_with_defs.append({"word": word, "definition": definition})
-            print(f"✓ {word}: {definition[:200]}...")  # Print first 200 chars
+            list_with_defs.append({"word": word['word'], "definition": definition})
+            print(f"{word['word']}: {definition}")
         except requests.exceptions.RequestException as e:
-            print(f"✗ Error fetching '{word}': {e}")
+            print(f"Error fetching '{word['word']}': {e}")
         except (IndexError, KeyError) as e:
-            print(f"✗ Could not parse definition for '{word}': {e}")
+            print(f"Could not parse definition for '{word['word']}': {e}")
 
     return list_with_defs
 
@@ -77,6 +93,7 @@ if __name__ == "__main__":
         # Get definitions for those words and print
         words_with_defs = get_definitions(words)
         print(f"\nTotal words with definitions: {len(words_with_defs)}")
+        save_defs("medical_list.csv", words_with_defs)
 
         """"# Load social studies words
         words = load_word_list("social_studies_list.csv")
