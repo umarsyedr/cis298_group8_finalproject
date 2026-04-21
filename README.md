@@ -42,3 +42,4 @@ LOG:
 5. Commits 13-14: Umar: 50 minutes - Found and integrated the definitions api within the get definitions function. Added a gitignore for the venv and .idea, and added documentation for creating a virtual environment.
 6. Commits 15-16: Mohammad, 2½ hours - Made a csv loader function in loader.py, tested our dictionary api integration, verified some error handling within csv files, and updated the log in readme.md.
 7. Commits 17-18: DiJon, 1 1/2 hours - Made word checker, also made a basic display so i could check to see if working properly. Saw that keeps asking for guesses even after getting word will fix later.
+8. Commits 19-20: Umar 2 hours - Learned about and implemented caching. Fixed bugs that came from caching related changes. Tested the caching in game. Note: the api will only take 29 requests at a time before it blocks us from sending. Might want to cut down our lists.
