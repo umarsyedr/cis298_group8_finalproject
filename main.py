@@ -72,6 +72,29 @@ def check_guess(secret_word, guess):
 
     return feedback
 
+def get_gamemode():
+    while True:
+        print("Select gamemode:")
+        print("1. Study Mode")
+        print("2. PvP Mode")
+        print("3. Quit")
+
+        choice = input("Enter choice: ").strip()
+        if choice in ["1", "2"]:
+            return choice
+        if choice == "3":
+            return "3"
+        else: print("INVALID CHOICE. Try again.\n")
+
+def get_players():
+    while True:
+        try:
+            num = int(input("Enter number of players: "))
+            if num > 1:
+                return num
+            else: print("Must be at least 2 players.")
+        except ValueError:
+            print("Enter a valid number. Try again.\n")
 
 # TESTING: Load words from CSV, then get definitions
 """if __name__ == "__main__":
@@ -104,6 +127,18 @@ def check_guess(secret_word, guess):
 # Main Program
 if __name__ == "__main__":
     while True:
+        #Show mode menu
+        mode = get_gamemode()
+
+        if mode == ("3"):
+            print("\n Thanks for playing! Goodbye!\n")
+            break
+        if mode == "2":
+            num_players = get_players()
+            scores = {f"player{i+1}": 0 for i in range(num_players)}
+        else:
+            scores = None
+
         # Show menu
         choice = display_menu()
 
@@ -137,4 +172,4 @@ if __name__ == "__main__":
         display_start_message(list_name)
 
         # Run the quiz
-        play_quiz(words_with_defs)
+        play_quiz(words_with_defs, scores, mode)

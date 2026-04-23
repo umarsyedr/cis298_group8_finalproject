@@ -94,10 +94,15 @@ def display_result(word, won):
         print(f"\n{Fore.RED}❌ Game Over! The word was: {word.upper()}{Style.RESET_ALL}\n")
 
 
-def play_quiz(words_with_defs):
+def play_quiz(words_with_defs, scores, mode):
     #Main quiz loop
     total_words = len(words_with_defs)
     correct_count = 0
+    quit_game = False
+
+    if mode == "2":
+        players = list(scores.keys())
+        current_player_index = 0
 
     for question_num, item in enumerate(words_with_defs, 1):
         word = item["word"]
@@ -105,6 +110,10 @@ def play_quiz(words_with_defs):
         attempts = 5
         won = False
         guessed_letters = set()
+
+        if mode == "2":
+            current_player = players[current_player_index]
+            print(f"\n {current_player}'s turn!")
 
         while attempts > 0:
             # Display prompt
@@ -117,9 +126,13 @@ def play_quiz(words_with_defs):
 
             # Check for quit
             if guess.upper() == "QUIT":
-                print(
-                    f"\n{Fore.CYAN}Thanks for playing! Final score: {correct_count}/{question_num - 1}{Style.RESET_ALL}\n")
-                return
+                if mode == "1":
+                    print(
+                        f"\n{Fore.CYAN}Thanks for playing! Final score: {correct_count}/{question_num - 1}{Style.RESET_ALL}\n")
+                    return
+                else:
+                    quit_game = True
+                    break
 
             # Validate input
             if not guess or len(guess) != len(word):
@@ -137,6 +150,10 @@ def play_quiz(words_with_defs):
             if check_if_correct(guess, word):
                 display_result(word, True)
                 correct_count += 1
+
+                if mode == "2":
+                    scores[current_player] += 1
+
                 won = True
                 break
 
@@ -146,10 +163,15 @@ def play_quiz(words_with_defs):
             if feedback:
                 display_feedback(guess, feedback)
                 attempts -= 1
+        if quit_game:
+            break
 
         # If didn't win this round
         if not won:
             display_result(word, False)
+
+        if mode == "2":
+            current_player_index = (current_player_index + 1) % len(players)
 
         # Ask if continue
         if question_num < total_words:
@@ -159,5 +181,12 @@ def play_quiz(words_with_defs):
     print(f"\n{'=' * 60}")
     print(f"QUIZ COMPLETE!")
     print(f"{'=' * 60}")
-    print(f"Score: {correct_count}/{total_words} ({int(correct_count / total_words * 100)}%)")
+    if mode =="2":
+        for player, score in scores.items():
+            print(f"{player}: {score}")
+
+        winner = max(scores, key=scores.get)
+        print(f"\n WINNNER: {winner}!!!")
+    else:
+        print(f"Score: {correct_count}/{total_words} ({int(correct_count / total_words * 100)}%)")
     print(f"{'=' * 60}\n")
