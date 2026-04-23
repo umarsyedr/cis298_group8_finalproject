@@ -1,6 +1,8 @@
 import requests
-from loader import load_word_list
 import csv
+from loader import load_word_list
+from interface import display_menu, get_list_name, display_start_message, play_quiz
+
 
 # ref: https://www.w3schools.com/python/ref_requests_post.asp
 # api ref: https://github.com/meetDeveloper/freeDictionaryAPI
@@ -52,7 +54,7 @@ def check_guess(secret_word, guess):
 
     #For correct position
     for i in range(len(guess)):
-        if guess[i] in secret_word:
+        if guess[i] == secret_word[i]:
             feedback[i] = "G"
             used_positions[i] = True
 
@@ -70,21 +72,9 @@ def check_guess(secret_word, guess):
 
     return feedback
 
-#Display right/wrong
-def display_feedback(guess, feedback):
-    for i in range(len(feedback)):
-        if feedback[i] == "G":
-            print(f"[{guess[i]}]", end=" ")
-        elif feedback[i] == "Y":
-            print(f"[{guess[i]}]", end=" ")
-        else:
-            print(f"[{guess[i]}]", end=" ")
-    print()
-
-
 
 # TESTING: Load words from CSV, then get definitions
-if __name__ == "__main__":
+"""if __name__ == "__main__":
 
         # Load medical words
         words = load_word_list("medical_list.csv")
@@ -95,7 +85,7 @@ if __name__ == "__main__":
         print(f"\nTotal words with definitions: {len(words_with_defs)}")
         save_defs("medical_list.csv", words_with_defs)
 
-        """"# Load social studies words
+        # Load social studies words
         words = load_word_list("social_studies_list.csv")
         print(f"\nLoaded words: {words[:5]}...\n")
 
@@ -111,19 +101,40 @@ if __name__ == "__main__":
         words_with_defs = get_definitions(words)
         print(f"\nTotal words with definitions: {len(words_with_defs)}")"""
 
-#Testing word check and display
-secret_word = "apple"
+# Main Program
+if __name__ == "__main__":
+    while True:
+        # Show menu
+        choice = display_menu()
 
-while True:
-    guess = input("\nGuess or quit: ").strip().lower()
+        if choice == "4":
+            print("\n Thanks for playing! Goodbye!\n")
+            break
 
-    if guess == "quit":
-        break
+        # Get list filename
+        filepath, list_name = get_list_name(choice)
 
-    result = check_guess(secret_word, guess)
+        if not filepath:
+            print("Invalid choice. Try again.\n")
+            continue
 
-    if result:
-        print("Feedback:", result)
-        display_feedback(guess, result)
+        # Load words
+        print(f"\nLoading {list_name} vocabulary...")
+        words = load_word_list(filepath)
 
+        if not words:
+            print(f"Could not load {list_name} list. Try again.\n")
+            continue
 
+        # Get definitions (API or cached)
+        print(f"Loading definitions...")
+        words_with_defs = get_definitions(words)
+
+        # Save definitions back to file (caching for next time)
+        save_defs(filepath, words_with_defs)
+
+        # Show motivational message
+        display_start_message(list_name)
+
+        # Run the quiz
+        play_quiz(words_with_defs)
