@@ -32,12 +32,11 @@ How we are going to build this:
 8. Build caching for the definitions so that we don’t hit the API every time, can store in the csv file. - UMAR
 9. Build player vs player: the adjustment here is that we ask for player number in the terminal before everything and increment a point every time they get an answer correct. - DIJON
 10. Convert Backend to Django - UMAR
-11. Build frontend if needed - UMAR
 
 To run the Django Server:
 
 1. Install dependencies by running pip install django djangorestframework
-2.
+2. Run python manage.py runserver
 
 LOG:
 
@@ -52,3 +51,4 @@ LOG:
 9. Commits 21-22: Mohammad 4 hours - Built a menu interface incorporating list options, definition display, game logic, attempt plus score tracking, error handling, and also explored the colorama library.
 10. Commits 23-24: DiJon 2 1/2 hours - Built mode menu, made PvP mode, made PvP have personal quit so won't show total correct could add if requested. Note: I saw that the definitions for social studies had the wrong definitions attached will make definitions for them again.
 11. Commits 24-26: Umar 30 minutes - updated readme, created basic django scaffolding. Referenced: https://www.youtube.com/watch?v=NoLF7Dlu5mc
+12. Commits 26-28: Umar 3 Hours - learned and implemented 3 Django REST API endpoints for possible frontend. Tested using Postman 2.
