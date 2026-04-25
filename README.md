@@ -31,7 +31,8 @@ How we are going to build this:
    Repeat with each word in the list, enter QUIT to quit.
 8. Build caching for the definitions so that we don’t hit the API every time, can store in the csv file. - UMAR
 9. Build player vs player: the adjustment here is that we ask for player number in the terminal before everything and increment a point every time they get an answer correct. - DIJON
-10. If time build a frontend - UMAR
+10. Convert Backend to Django - UMAR
+11. Build frontend if needed - UMAR
 
 LOG:
 
