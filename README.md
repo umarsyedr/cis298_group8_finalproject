@@ -34,6 +34,11 @@ How we are going to build this:
 10. Convert Backend to Django - UMAR
 11. Build frontend if needed - UMAR
 
+To run the Django Server:
+
+1. Install dependencies by running pip install django djangorestframework
+2.
+
 LOG:
 
 1. Commits 1,2,3: Umar, 2 hours - I brainstormed features for the app, assigned tasks to everyone, and made a timeline for completion. Also added a custom list csv file for testing.
@@ -46,3 +51,4 @@ LOG:
 8. Commits 19-20: Umar 2 hours - Learned about and implemented caching. Fixed bugs that came from caching related changes. Tested the caching in game. Note: the api will only take 29 requests at a time before it blocks us from sending. Might want to cut down our lists.
 9. Commits 21-22: Mohammad 4 hours - Built a menu interface incorporating list options, definition display, game logic, attempt plus score tracking, error handling, and also explored the colorama library.
 10. Commits 23-24: DiJon 2 1/2 hours - Built mode menu, made PvP mode, made PvP have personal quit so won't show total correct could add if requested. Note: I saw that the definitions for social studies had the wrong definitions attached will make definitions for them again.
+11. Commits 24-26: Umar 30 minutes - updated readme, created basic django scaffolding. Referenced: https://www.youtube.com/watch?v=NoLF7Dlu5mc
