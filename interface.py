@@ -1,5 +1,7 @@
 import colorama
 from colorama import Fore, Style
+from utils import check_guess, is_valid_word
+
 
 # Initialize colorama for cross-platform color support
 colorama.init(autoreset=True)
@@ -137,6 +139,10 @@ def play_quiz(words_with_defs, scores, mode):
             # Validate input
             if not guess or len(guess) != len(word):
                 print(f"{Fore.RED}Invalid! Guess must be {len(word)} letters.{Style.RESET_ALL}")
+                continue
+
+            if not is_valid_word(guess):
+                print(f"{Fore.RED}Invalid word! Please use english words.{Style.RESET_ALL}")
                 continue
 
             # Check if already guessed

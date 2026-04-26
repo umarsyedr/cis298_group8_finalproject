@@ -41,36 +41,6 @@ def get_definitions(word_list):
 
     return list_with_defs
 
-def check_guess(secret_word, guess):
-    secret_word = secret_word.lower()
-    guess = guess.lower()
-
-    if len(guess) != len(secret_word):
-        print("Guess must be of the same length as the word")
-        return None
-
-    feedback = [""] * len(secret_word)
-    used_positions = [False] * len(secret_word)
-
-    #For correct position
-    for i in range(len(guess)):
-        if guess[i] == secret_word[i]:
-            feedback[i] = "G"
-            used_positions[i] = True
-
-    #For correct letter wrong position
-    for i in range(len(guess)):
-        if feedback[i] == "":
-            for j in range(len(secret_word)):
-                if guess[i] == secret_word[j] and not used_positions[j]:
-                    feedback[i] = "Y"
-                    used_positions[j] = True
-                    break
-
-            if feedback[i] == "":
-                feedback[i] = "X"
-
-    return feedback
 
 def get_gamemode():
     while True:
