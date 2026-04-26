@@ -52,3 +52,4 @@ LOG:
 10. Commits 23-24: DiJon 2 1/2 hours - Built mode menu, made PvP mode, made PvP have personal quit so won't show total correct could add if requested. Note: I saw that the definitions for social studies had the wrong definitions attached will make definitions for them again.
 11. Commits 24-26: Umar 30 minutes - updated readme, created basic django scaffolding. Referenced: https://www.youtube.com/watch?v=NoLF7Dlu5mc
 12. Commits 26-28: Umar 3 Hours - learned and implemented 3 Django REST API endpoints for possible frontend. Tested using Postman 2.
+13. Commits 29-31: DiJon 2 hours - learned and implemented a function to test if real words are used, for the now it only checks to see if its an english word. Also fixed the social studies definitions.
