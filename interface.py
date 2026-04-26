@@ -164,7 +164,6 @@ def play_quiz(words_with_defs, scores, mode):
                 break
 
             # Get feedback and display
-            from main import check_guess
             feedback = check_guess(word, guess)
             if feedback:
                 display_feedback(guess, feedback)
