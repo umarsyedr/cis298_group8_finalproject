@@ -94,7 +94,6 @@ def get_players():
         words_with_defs = get_definitions(words)
         print(f"\nTotal words with definitions: {len(words_with_defs)}")"""
 
-# Main Program
 if __name__ == "__main__":
     while True:
         #Show mode menu

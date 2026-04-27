@@ -7,6 +7,8 @@ import requests
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+# ref: https://stackoverflow.com/questions/25688132/what-is-the-absolute-path-of-base-dir
+from django.conf import settings 
 
 list_options = {
     "1": ("custom_list.csv", "Custom"),
@@ -113,14 +115,14 @@ def get_word_lists(request):
 @api_view(["POST"])
 def load_words(request):
     list_type = request.data.get("list_type")
-    # we need to make these relative, copy the files over?
+
+# ref for relative paths: https://stackoverflow.com/questions/63012796/change-base-directory-to-upper-directory-in-python
     if list_type == "custom":
-        path = "/Users/Umar/Desktop/CIS298/group_8_final_project/custom_list.csv"
+        path = os.path.join(settings.BASE_DIR, "api", "data", "custom_list.csv")
     elif list_type == "medical":
-        path = "/Users/Umar/Desktop/CIS298/group_8_final_project/medical_list.csv"
+        path = os.path.join(settings.BASE_DIR, "api", "data", "medical_list.csv")
     elif list_type == "socialstudies":
-        path = "/Users/Umar/Desktop/CIS298/group_8_final_project/social_studies_list.csv"
-    
+        path = os.path.join(settings.BASE_DIR, "api", "data", "social_studies_list.csv")    
     words = load_word_list(path)
     wordsanddefinitions = get_definitions(words)
     save_defs(path, wordsanddefinitions)
