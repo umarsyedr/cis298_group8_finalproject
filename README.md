@@ -1,3 +1,7 @@
+# Verbatim - A Vocabulary Helper
+
+Verbatim is a vocabulary memorization helper inspired by Wordle. Users input a list of words they want to memorize, and we display their definitions one by one and have the user guess it wordle style. They will get 5 attempts to guess the word through its definition. Our goal is to help elementry school children memorize their vocabulary words better.
+
 To run this install:
 
 1. To create a virtual enviornment (on mac), run
@@ -5,13 +9,8 @@ To run this install:
 - python3 -m venv venv
 - source venv/bin/activate
 
-2. Requests, (INSERT MORE DEPENDENCIES HERE)
+2. Install Requests, Colorama
 3. python(3) main.py
-
-Idea: we are building a vocabulary memorization app, where the user inputs a list of words they want to memorize, and we display their definitions one by one and have the user guess it wordle style. They will get 5 attempts to guess the word through its definition. An alternative to this is to study one of our preselected lists:
-
-- Common medical vocabulary
-- Common social studies vocabulary
 
 How we are going to build this:
 
@@ -53,3 +52,4 @@ LOG:
 11. Commits 24-26: Umar 30 minutes - updated readme, created basic django scaffolding. Referenced: https://www.youtube.com/watch?v=NoLF7Dlu5mc
 12. Commits 26-28: Umar 3 Hours - learned and implemented 3 Django REST API endpoints for possible frontend. Tested using Postman 2.
 13. Commits 29-31: DiJon 2 hours - learned and implemented a function to test if real words are used, for the now it only checks to see if its an english word. Also fixed the social studies definitions.
+14. Commits 34-36: Umar 25 Minutes - cleaned up the code, made it so that paths are relative for the Django backend. Fixed Readme.
