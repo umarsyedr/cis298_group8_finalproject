@@ -12,7 +12,7 @@ colorama.init(autoreset=True)
 def display_menu():
     #Display main menu and get user choice
     print("\n" + "=" * 60)
-    print("                      VOCABULARY QUIZ")
+    print("                   Verbatim: Vocab Wordle")
     print("=" * 60)
     print("\nChoose a word list:")
     print("  1 = Custom vocabulary")

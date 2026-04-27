@@ -1,5 +1,6 @@
 import requests
 import csv
+import random
 from loader import load_word_list
 from interface import display_menu, get_list_name, display_start_message, play_quiz
 
@@ -139,6 +140,9 @@ if __name__ == "__main__":
 
         # Show motivational message
         display_start_message(list_name)
+
+        # Randomize word order
+        random.shuffle(words_with_defs)
 
         # Run the quiz
         play_quiz(words_with_defs, scores, mode)
