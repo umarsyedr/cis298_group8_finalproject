@@ -1,8 +1,10 @@
 import requests
 import csv
 import random
+from colorama import Fore, Style
 from loader import load_word_list
 from interface import display_menu, get_list_name, display_start_message, play_quiz
+from database import init_database, save_score, display_user_stats, display_leaderboard
 
 
 # ref: https://www.w3schools.com/python/ref_requests_post.asp
@@ -67,6 +69,29 @@ def get_players():
         except ValueError:
             print("Enter a valid number. Try again.\n")
 
+def get_username():  # CHANGED/ADDED
+    """Get username from player"""
+    while True:
+        username = input("Enter your username: ").strip()
+        if username and len(username) <= 20:
+            return username
+        print("Username must be 1-20 characters. Try again.")
+
+def display_main_menu():  # CHANGED/ADDED
+    # Display main menu before game selection
+    print("\n" + "=" * 60)
+    print("                        Verbatim")
+    print("=" * 60)
+    print("\n1. Play Quiz")
+    print("2. Recorded Quiz")
+    print("3. View My Stats")
+    print("4. View Leaderboard")
+    print("5. Quit")
+    print("=" * 60)
+
+    choice = input("\nEnter choice (1-5): ").strip()
+    return choice
+
 # TESTING: Load words from CSV, then get definitions
 """if __name__ == "__main__":
 
@@ -96,53 +121,152 @@ def get_players():
         print(f"\nTotal words with definitions: {len(words_with_defs)}")"""
 
 if __name__ == "__main__":
+    init_database()  # Initialize database on startup
+
+    username = None
+
     while True:
-        #Show mode menu
-        mode = get_gamemode()
+        # Show main menu
+        main_choice = display_main_menu()
 
-        if mode == ("3"):
-            print("\n Thanks for playing! Goodbye!\n")
+        if main_choice == "1":  # Play Quiz (guest mode)
+            # Show mode menu
+            mode = get_gamemode()
+
+            if mode == "3":
+                print("\n Thanks for playing! Goodbye!\n")
+                break
+            if mode == "2":
+                num_players = get_players()
+                scores = {f"player{i + 1}": 0 for i in range(num_players)}
+            else:
+                scores = None
+
+            # Show menu
+            choice = display_menu()
+
+            if choice == "4":
+                print("\n Thanks for playing! Goodbye!\n")
+                break
+
+            # Get list filename
+            filepath, list_name = get_list_name(choice)
+
+            if not filepath:
+                print("Invalid choice. Try again.\n")
+                continue
+
+            # Load words
+            print(f"\nLoading {list_name} vocabulary...")
+            words = load_word_list(filepath)
+
+            if not words:
+                print(f"Could not load {list_name} list. Try again.\n")
+                continue
+
+            # Get definitions (API or cached)
+            print(f"Loading definitions...")
+            words_with_defs = get_definitions(words)
+
+            # Save definitions back to file (caching for next time)
+            save_defs(filepath, words_with_defs)
+
+            # Show motivational message
+            display_start_message(list_name)
+
+            # Shuffle words
+            random.shuffle(words_with_defs)
+
+            # Run the quiz
+            correct_count = play_quiz(words_with_defs, scores, mode)
+
+            # NO SCORE SAVING IN GUEST MODE
+            print(f"\n{Fore.CYAN}Guest mode - score not saved to database{Style.RESET_ALL}\n")
+
+        elif main_choice == "2":  # Recorded Quiz (with account)
+            if not username:
+                username = get_username()
+
+            # Show mode menu
+            mode = get_gamemode()
+
+            if mode == "3":
+                print("\n Thanks for playing! Goodbye!\n")
+                break
+            if mode == "2":
+                num_players = get_players()
+                scores = {f"player{i + 1}": 0 for i in range(num_players)}
+            else:
+                scores = None
+
+            # Show menu
+            choice = display_menu()
+
+            if choice == "4":
+                print("\n Thanks for playing! Goodbye!\n")
+                break
+
+            # Get list filename
+            filepath, list_name = get_list_name(choice)
+
+            if not filepath:
+                print("Invalid choice. Try again.\n")
+                continue
+
+            # Load words
+            print(f"\nLoading {list_name} vocabulary...")
+            words = load_word_list(filepath)
+
+            if not words:
+                print(f"Could not load {list_name} list. Try again.\n")
+                continue
+
+            # Get definitions (API or cached)
+            print(f"Loading definitions...")
+            words_with_defs = get_definitions(words)
+
+            # Save definitions back to file (caching for next time)
+            save_defs(filepath, words_with_defs)
+
+            # Show motivational message
+            display_start_message(list_name)
+
+            # Randomize word order
+            random.shuffle(words_with_defs)
+
+            # Run the quiz
+            correct_count = play_quiz(words_with_defs, scores, mode)
+
+            # Save score to database
+            if mode == "1" and correct_count is not None:
+                save_score(username, list_name, correct_count, len(words_with_defs))
+
+        elif main_choice == "3":  # View Stats
+            if not username:
+                username = get_username()
+            display_user_stats(username)
+
+        elif main_choice == "4":  # View Leaderboard
+            print("\nLeaderboard options:")
+            print("1. Medical")
+            print("2. Social Studies")
+            print("3. Custom")
+            print("4. Overall")
+            lb_choice = input("Choose: ").strip()
+
+            if lb_choice == "1":
+                display_leaderboard("Medical")
+            elif lb_choice == "2":
+                display_leaderboard("Social Studies")
+            elif lb_choice == "3":
+                display_leaderboard("Custom")
+            elif lb_choice == "4":
+                display_leaderboard()
+            else:
+                print("Invalid choice")
+
+        elif main_choice == "5":  # Quit
+            print("\n👋 Thanks for playing! Goodbye!\n")
             break
-        if mode == "2":
-            num_players = get_players()
-            scores = {f"player{i+1}": 0 for i in range(num_players)}
         else:
-            scores = None
-
-        # Show menu
-        choice = display_menu()
-
-        if choice == "4":
-            print("\n Thanks for playing! Goodbye!\n")
-            break
-
-        # Get list filename
-        filepath, list_name = get_list_name(choice)
-
-        if not filepath:
             print("Invalid choice. Try again.\n")
-            continue
-
-        # Load words
-        print(f"\nLoading {list_name} vocabulary...")
-        words = load_word_list(filepath)
-
-        if not words:
-            print(f"Could not load {list_name} list. Try again.\n")
-            continue
-
-        # Get definitions (API or cached)
-        print(f"Loading definitions...")
-        words_with_defs = get_definitions(words)
-
-        # Save definitions back to file (caching for next time)
-        save_defs(filepath, words_with_defs)
-
-        # Show motivational message
-        display_start_message(list_name)
-
-        # Randomize word order
-        random.shuffle(words_with_defs)
-
-        # Run the quiz
-        play_quiz(words_with_defs, scores, mode)

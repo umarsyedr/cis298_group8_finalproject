@@ -98,6 +98,7 @@ def display_result(word, won):
 
 def play_quiz(words_with_defs, scores, mode):
     #Main quiz loop
+    global players, current_player_index, current_player
     total_words = len(words_with_defs)
     correct_count = 0
     quit_game = False
@@ -131,7 +132,7 @@ def play_quiz(words_with_defs, scores, mode):
                 if mode == "1":
                     print(
                         f"\n{Fore.CYAN}Thanks for playing! Final score: {correct_count}/{question_num - 1}{Style.RESET_ALL}\n")
-                    return
+                    return None
                 else:
                     quit_game = True
                     break
@@ -180,7 +181,7 @@ def play_quiz(words_with_defs, scores, mode):
 
         # Ask if continue
         if question_num < total_words:
-            cont = input("Press ENTER to continue to next word...").strip()
+            input("Press ENTER to continue to next word...").strip()
 
     # Final summary
     print(f"\n{'=' * 60}")
@@ -191,7 +192,9 @@ def play_quiz(words_with_defs, scores, mode):
             print(f"{player}: {score}")
 
         winner = max(scores, key=scores.get)
-        print(f"\n WINNNER: {winner}!!!")
+        print(f"\n WINNER: {winner}!!!")
     else:
         print(f"Score: {correct_count}/{total_words} ({int(correct_count / total_words * 100)}%)")
     print(f"{'=' * 60}\n")
+
+    return correct_count
