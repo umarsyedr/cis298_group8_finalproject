@@ -9,7 +9,7 @@ To run this install:
 - python3 -m venv venv
 - source venv/bin/activate
 
-2. Install Requests, Colorama
+2. Install Requests, Colorama, Sqlite3
 3. python(3) main.py
 
 How we are going to build this:
@@ -53,3 +53,4 @@ LOG:
 12. Commits 26-28: Umar 3 Hours - learned and implemented 3 Django REST API endpoints for possible frontend. Tested using Postman 2.
 13. Commits 29-31: DiJon 2 hours - learned and implemented a function to test if real words are used, for the now it only checks to see if its an english word. Also fixed the social studies definitions.
 14. Commits 34-36: Umar 25 Minutes - cleaned up the code, made it so that paths are relative for the Django backend. Fixed Readme.
+15. Commits 37-41: Mohammad 4 hours - Implemented a database to store player statistics and added word shuffle for the lists. 
